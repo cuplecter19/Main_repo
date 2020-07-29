@@ -59,7 +59,7 @@ public class MemberCtrl {
 		MemberVO minfo = msv.login(mvo);
 		HttpSession ses = req.getSession();
 		if(minfo != null) {
-			ses.setAttribute("mid", minfo.getMember_id());
+			ses.setAttribute("mvo", minfo);
 			log.info(">>>>"+minfo.getMember_id());
 			if(minfo.getOpt()==0) {
 				return "/store/nav";

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -62,12 +63,17 @@ public class ReceiptCtrl {
 	@ResponseBody
 	public String searchList(ReceiptVO rvo) throws ParseException {
 		List<ReceiptVO> list = null;
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
 		log.info("get list 진입");
-//		String sell_date_s = format.format(rvo.getSell_date_s());
-//		String sell_date_e = format.format(rvo.getSell_date_e());
-		Date s_date = format.parse(rvo.getStr_date_s());
-		Date e_date = format.parse(rvo.getStr_date_e());
+		String str_s = rvo.getStr_date_s();
+		String str_e = rvo.getStr_date_e();
+		log.info(rvo.getStr_date_e());
+		String sell_date_s = str_s.substring(0, str_s.lastIndexOf(":")+3);
+		String sell_date_e = str_e.substring(0, str_e.lastIndexOf(":")+3);
+		log.info(sell_date_s);
+		log.info(sell_date_e);
+		Date s_date = format.parse(sell_date_s);
+		Date e_date = format.parse(sell_date_e);
 		rvo.setSell_date_s(s_date);
 		rvo.setSell_date_e(e_date);
 //		log.info(s_date+" : "+e_date);

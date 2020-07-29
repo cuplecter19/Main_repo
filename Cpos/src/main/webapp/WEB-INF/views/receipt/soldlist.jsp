@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<c:set var="ses" value="${mid}" scope="session"/>
+<p>${ses.member_id }</p>
 <section class="py-5">
   <div class="container">
     <button type="button" class="btn btn-primary">전체보기</button>
@@ -21,7 +21,7 @@
         </select>
       </div>
       <input type="date" id="sell_date_s"> - <input type="date" id="sell_date_e">
-      
+      <button type="button" id="schBtn">조회</button>
     </div>
   <div class="container listArea" style="overflow: auto">
     <ul class="nav nav-pills nav-justified" id="recList">
@@ -35,7 +35,7 @@
     	<c:forEach var="rvo" items="${list}" >
     	  <ul class="nav nav-pills nav-justified">
 	    	<li class="nav-item">${rvo.sell_no}</li>
-	      	<li class="nav-item">${rvo.receipt_no }</li>
+	      	<li class="nav-item"><a class="detailLink" href="#">${rvo.receipt_no }</a></li>
 	      	<li class="nav-item">${rvo.pname }</li>
 	      	<c:choose>
 	      		<c:when test="${rvo.pay_method eq 'cash'}">
@@ -62,24 +62,34 @@
   var mm = today.getMonth()+1 > 9 ? today.getMonth()+1 : '0' + today.getMonth()+1;
   var dd = today.getDate() > 9 ? today.getDate() : '0' + today.getDate();
   $("#sell_date_e").val(yyyy+"-"+mm+"-"+dd);
+  let member_id = '<c:out value="${ses.member_id}"/>';
   console.log($("#sell_date_s").val());
   console.log($("#sell_date_e").val());
+  console.log(member_id);
   $(function() {
+	  $(".detailLink").on("click", function() {
+		console.log('detail');
+		let recno = $(this).text();
+		console.log(recno);
+	});
 	  $("#schBtn").on("click", function() {
 		  //null값대신 사용할 체크용 값 정해두기
 		  console.log('sch click');
-		  let member_id = '<c:out value="${ses}"/>';
+		  let member_id = '<c:out value="${ses.member_id}"/>';
 		  let division = $("#division").val();
 		  let pay_method = $("#pay_method").val();
 		  let sell_date_s = "";
 		  let sell_date_e = "";
 		  if($("#sell_date_s").val() == ""){
-			sell_date_s = new Date(1999, 1, 1, 00, 00, 00);
+			sell_date_s = new Date(1999, 1, 1, 00, 00, 01);
+			console.log(sell_date_s);
 		  }else{
 		  	sell_date_s = $("#sell_date_s").val();
+		  	console.log(sell_date_s);
 		  }
 		  if($("#sell_date_e").val() == ""){
 			  sell_date_e = today;
+			  console.log(sell_date_e)
 		  }else{
 			  sell_date_e = $("#sell_date_e").val();
 			  console.log(sell_date_e);

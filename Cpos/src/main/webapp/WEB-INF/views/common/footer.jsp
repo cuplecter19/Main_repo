@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="ses" value="${mvo}" scope="session"/>
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
@@ -24,7 +24,7 @@
 					class="btn btn-primary">매출통계</a>
 			</div>
 
-			<c:if test="${ses ne null || ses ne ''}">
+			<c:if test="${not empty ses}">
 				<div class="btn-group">
 					<a href="/member/logout" class="btn btn-primary">로그아웃</a>
 				</div>

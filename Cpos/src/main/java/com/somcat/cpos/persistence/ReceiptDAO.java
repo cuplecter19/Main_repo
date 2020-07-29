@@ -1,5 +1,6 @@
 package com.somcat.cpos.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
