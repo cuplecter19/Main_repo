@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,37 +60,37 @@ public class ReceiptCtrl {
 		}
 	}
 	
-	@GetMapping("/list")
+	@GetMapping(value="/list",  produces = {MediaType.APPLICATION_XML_VALUE,
+	         MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
-	public String searchList(ReceiptVO rvo) throws ParseException {
+	public List<ReceiptVO> searchList(ReceiptVO rvo) throws ParseException {
 		List<ReceiptVO> list = null;
-		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		log.info("get list 진입");
 		String str_s = rvo.getStr_date_s();
 		String str_e = rvo.getStr_date_e();
+		log.info(rvo.getStr_date_s());
 		log.info(rvo.getStr_date_e());
-		String sell_date_s = str_s.substring(0, str_s.lastIndexOf(":")+3);
-		String sell_date_e = str_e.substring(0, str_e.lastIndexOf(":")+3);
-		log.info(sell_date_s);
-		log.info(sell_date_e);
-		Date s_date = format.parse(sell_date_s);
-		Date e_date = format.parse(sell_date_e);
+		Date s_date = format.parse(str_s);
+		Date e_date = format.parse(str_e);
 		rvo.setSell_date_s(s_date);
 		rvo.setSell_date_e(e_date);
+		log.info(s_date.toString());
+		log.info(e_date.toString());
 //		log.info(s_date+" : "+e_date);
-		JSONObject obj = new JSONObject();
-		obj.put("list", list);
-		String str = JSONObject.toJSONString(obj);
-		return str;
+		list = rsv.selectReceiptList(rvo);
+		return list;
 	}
 	
-	@GetMapping(value = "/detail/{rno}")
+	@GetMapping(value="/detail/{rno}",  produces = {MediaType.APPLICATION_XML_VALUE,
+	         MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
-	public String getReceiptDetail(@PathVariable("rno")int rno) {
-		ReceiptVO rvo = rsv.selectReceiptDetail(rno);
-		JSONObject obj = new JSONObject();
-		obj.put("rvo", rvo);
-		String str = JSONObject.toJSONString(obj);
-		return str;
+	public List<ReceiptVO> getReceiptDetail(@PathVariable("rno")String rno) {
+		log.info(rno);
+		List<ReceiptVO> list = rsv.selectReceiptDetail(rno);
+		for(int i=0; i<list.size(); i++) {
+			
+		}
+		return list;
 	}
 }

@@ -38,7 +38,7 @@
     and (sell_date between #{sell_date_s} and #{sell_date_e}) order by sell_no desc, pname
     ]]>
   </select>
-  <select id="rdetail" parameterType="java.lang.Integer" resultType="ReceiptVO">
+  <select id="rdetail" parameterType="java.lang.String" resultType="ReceiptVO">
     select * from tbl_sell where receipt_no = #{receipt_no}
   </select>
 </mapper>
