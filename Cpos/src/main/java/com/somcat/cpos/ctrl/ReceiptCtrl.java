@@ -78,7 +78,11 @@ public class ReceiptCtrl {
 		log.info(s_date.toString());
 		log.info(e_date.toString());
 //		log.info(s_date+" : "+e_date);
-		list = rsv.selectReceiptList(rvo);
+		if(rvo.getDivision()==0) {
+			list = rsv.selectReceiptList(rvo);
+		}else if(rvo.getDivision()==1){
+			list = rsv.selectScrapList(rvo);
+		}
 		return list;
 	}
 	

@@ -1,4 +1,4 @@
-function allList() {
+function scrapList() {
 	
 }
 
@@ -25,7 +25,7 @@ function printList(list){
 		ulTag += '<li class="nav-item">'+key.pname+'</li>';
 		ulTag += '<li class="nav-item">'+key.pay_method+'</li>';
 		ulTag += '<li class="nav-item">'+key.sell_date+'</li>';
-		$("#listArea").append(ulTag);
+		$("#ReceiptList").append(ulTag);
 	}
 }
 
@@ -42,7 +42,11 @@ function printDetail(rno){
                  tableTag += '<td>'+ rvo.pname +'</td>';
                  tableTag += '<td style="display:none">'+ rvo.category +'</td>';
                  tableTag += '<td>'+ rvo.sell_qnt+'</td>';
-                 tableTag += '<td>'+ (rvo.sell_price)*rvo.sell_qnt +'</td>';
+                 if(rvo.discount_rate>0){
+                 tableTag += '<td>'+ ((rvo.sell_price)*rvo.sell_qnt)-(((rvo.sell_price)*rvo.sell_qnt)*(rvo.discount_rate)/100) +'</td>';
+                 }else{
+                	 tableTag += '<td>'+ (rvo.sell_price)*rvo.sell_qnt+'</td>';
+                 }
                  tableTag += '<td>'+ rvo.pay_method +'</td>';
                  let strdate = (new Date(rvo.sell_date)).toString();
                  strdate = strdate.substring(0, strdate.lastIndexOf(":")+3);

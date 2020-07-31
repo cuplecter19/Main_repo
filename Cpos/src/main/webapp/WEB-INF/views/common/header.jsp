@@ -24,6 +24,7 @@
 
 <!-- Custom styles for this template -->
 <!-- <link href="/resources/css/custom.css" rel="stylesheet"> -->
+<link href="/resources/css/lji/ji.css" rel="stylesheet">
 </head>
 
 <body>

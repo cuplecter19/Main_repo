@@ -9,4 +9,5 @@ public interface ReceiptServiceIntf {
 	
 	public List<ReceiptVO> selectReceiptList(ReceiptVO rvo);
 	public List<ReceiptVO> selectReceiptDetail(String rno);
+	public List<ReceiptVO> selectScrapList(ReceiptVO rvo);
 }

@@ -32,4 +32,9 @@ public class ReceiptService implements ReceiptServiceIntf{
 	public List<ReceiptVO> selectReceiptDetail(String rno) {
 		return rdao.getReceiptDetail(rno);
 	}
+
+	@Override
+	public List<ReceiptVO> selectScrapList(ReceiptVO rvo) {
+		return rdao.getScrapList(rvo);
+	}
 }

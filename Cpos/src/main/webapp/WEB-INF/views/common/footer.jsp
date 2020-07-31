@@ -31,6 +31,7 @@
 			</c:if>
 		</div>
 		<!-- /.container -->
+	</div>
 </footer>
 
 <script>

@@ -17,7 +17,7 @@
           class="form-control" id="pwd" placeholder="Enter password"
           name="member_pwd">
       </div>
-      <select name="opt" class="custom-select">
+      <select name="opt" id="opt" class="custom-select">
        <option selected>Member type</option>
        <option value="0">가맹점</option>
        <option value="1">가맹주</option>

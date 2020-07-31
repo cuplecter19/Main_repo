@@ -8,4 +8,5 @@ public interface ReceiptDAOIntf {
 	public int insertReceipt(ReceiptVO rvo);
 	public List<ReceiptVO> getReceiptList(ReceiptVO rvo);
 	public List<ReceiptVO> getReceiptDetail(String rno);
+	public List<ReceiptVO> getScrapList(ReceiptVO rvo);
 }

@@ -9,22 +9,12 @@
       pay_method = #{pay_method}
     </trim>
   </if>
-  <if test="division != -1">
+  <if test="division == 0">
     <trim prefix=" and (" suffix=") ">
       division = #{division}
     </trim>
   </if>
 </sql>
-  <select id="large">
-    select large from tbl_inventory i INNER JOIN TBL_CATEGORY c 
-  on i.CATEGORY = c.CATEGORY group by large
-  </select>
-  <select id="medium">
-    select medium from tbl_inventory i INNER JOIN TBL_CATEGORY c 
-  on i.CATEGORY = c.CATEGORY group by medium
-  </select>
-  <select id="plist">
-  </select>
   <insert id="addrec" parameterType="ReceiptVO">
     insert into tbl_sell(sell_no, member_id, barcode, sell_qnt, pay_method, sell_date, discount_rate, receipt_no) 
     values(seq_sell_no.nextval, #{member_id}, #{barcode}, #{sell_qnt}, #{pay_method}, #{sell_date}, #{discount_rate}, #{receipt_no})
@@ -37,6 +27,10 @@
     <![CDATA[
     and (sell_date between #{sell_date_s} and #{sell_date_e}) order by sell_no desc, pname
     ]]>
+  </select>
+  <select id="scraplist">
+  	select scrap_no, barcode, pname, category, scrap_qnt, scrap_date from tbl_scrap where rownum > 0 
+    and (scrap_date between #{sell_date_s} and #{sell_date_e}) order by scrap_no
   </select>
   <select id="rdetail" parameterType="java.lang.String" resultType="ReceiptVO">
     select * from tbl_sell where receipt_no = #{receipt_no}

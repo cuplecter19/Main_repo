@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<section class="py-5">
-  <div class="container">
-    <button type="button" class="btn btn-primary">전체보기</button>
+<section class="py-5 receipt" class="clearfix">
+  <div class="container" id="receiptMenu">
+    <button type="button" class="btn btn-primary" href="/receipt/soldlist">전체보기</button>
       <div class="btn-group">
         <select name="division" class="custom-select" id="division">
 			    <option selected value="-1">매출분류</option>
@@ -22,7 +22,7 @@
       <input type="date" id="sell_date_s"> - <input type="date" id="sell_date_e">
       <button type="button" id="schBtn">조회</button>
     </div>
-  <div class="container listArea" style="overflow: auto" id="listArea">
+  <div class="container listArea" id="ReceiptList">
     <ul class="nav nav-pills nav-justified" id="recList">
       <li class="nav-item">순번</li>
       <li class="nav-item">영수증번호</li>
@@ -49,8 +49,8 @@
     	</c:forEach>
     </c:if>
   </div>
-  <div class="container detailArea">
-    <table id="detable" class="table">
+  <div class="container detailArea" id="receiptDetail">
+    <table id="detable" class="table table-hover">
     	<thead id="thead">
     	<tr>
     		<th style="display:none">sell_no</th>
@@ -95,14 +95,18 @@
 		  let pay_method = $("#pay_method").val();
 		  let sell_date_s = "";
 		  let sell_date_e = "";
-		  if($("#sell_date_s").val() == "" || $("#sell_date_e").val() == ""){
-			alert('조회 일시를 선택해주세요.');
-		  }else{
-		  	sell_date_s = $("#sell_date_s").val();
-		  	console.log(sell_date_s);
-		  	sell_date_e = $("#sell_date_e").val();
-			  console.log(sell_date_e);
-			  searchList(member_id, division, pay_method, sell_date_s, sell_date_e);
+		  if(division == 0){
+			  if($("#sell_date_s").val() == "" || $("#sell_date_e").val() == ""){
+				alert('조회 일시를 선택해주세요.');
+			  }else{
+			  	sell_date_s = $("#sell_date_s").val();
+			  	console.log(sell_date_s);
+			  	sell_date_e = $("#sell_date_e").val();
+				  console.log(sell_date_e);
+				  searchList(member_id, division, pay_method, sell_date_s, sell_date_e);
+			  }
+		  }else if(division==1){
+			  scrapList();
 		  }
 		  console.log(member_id);
 		  console.log(division+" "+pay_method);

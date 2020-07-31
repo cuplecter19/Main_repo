@@ -32,4 +32,8 @@ public class ReceiptDAO implements ReceiptDAOIntf{
 	public int insertReceipt(ReceiptVO rvo) {
 		return sql.insert(ns+"addrec", rvo);
 	}
+	@Override
+	public List<ReceiptVO> getScrapList(ReceiptVO rvo) {
+		return sql.selectList(ns+"scraplist", rvo);
+	}
 }
